@@ -1,5 +1,13 @@
 # scrum-tracking
- Aplicacion se seguimientos de las fases de un proyecto Scrum en linea.
+
+Miembros del equipo de desarrollo:
+1)Fabian Ricardo Quintanilla Sanchez (lider del proyecto)
+2)Miguel Angel Felix Ramos
+3)Dennis Davit Carrera Garcia
+4)Haydee Bealuz Quispe Ramos
+
+
+    Aplicacion se seguimientos de las fases de un proyecto Scrum en linea, Proyecto estudiantil
  
 1)Tecnologías a utilizar
 
