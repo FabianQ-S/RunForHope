@@ -176,5 +176,5 @@ Limitaciones
 
     Fase 5 (Mantenimiento): Continuo.
     
-    
+ Derechos Reservados   XD
     
