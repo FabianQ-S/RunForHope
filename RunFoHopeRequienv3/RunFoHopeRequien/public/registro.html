@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registro de Participantes - Carrera Benéfica</title>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/css/global.css">
+  <style>
+    /* Estilos específicos para registroPrincipal.html */
+    body {
+      padding-top: 60px;
+    }
+    
+    #registroForm {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 2rem;
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+    }
+    
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+    
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+      color: #1a365d;
+    }
+    
+    .required::after {
+      content: "*";
+      color: #dc3545;
+      margin-left: 4px;
+    }
+    
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    input[type="date"],
+    select {
+      width: 100%;
+      padding: 0.75rem;
+      border: 1px solid #ced4da;
+      border-radius: 4px;
+      font-size: 1rem;
+      transition: border-color 0.3s, box-shadow 0.3s;
+    }
+    
+    input[type="checkbox"] {
+      width: auto;
+      margin-right: 0.5rem;
+      transform: scale(1.2);
+    }
+    
+    input:focus, select:focus {
+      border-color: #2a5298;
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(42, 82, 152, 0.2);
+    }
+    
+    #mensaje {
+      margin: 1rem 0;
+      padding: 0.75rem;
+      border-radius: 4px;
+      font-size: 0.95rem;
+    }
+    
+    .success {
+      color: #155724;
+      background-color: #d4edda;
+      border: 1px solid #c3e6cb;
+    }
+    
+    .error {
+      color: #dc3545;
+      background-color: #f8d7da;
+      border: 1px solid #f5c6cb;
+    }
+    
+    @media (max-width: 768px) {
+      #registroForm {
+        padding: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar se cargará dinámicamente -->
+
+  <div class="main-container">
+    <h1 class="page-header">Registro de Nuevo Participante</h1>
+    <form id="registroForm">
+      <div class="form-group">
+        <label class="required">Nombre:</label>
+        <input type="text" id="nombre" required>
+      </div>
+
+      <div class="form-group">
+        <label class="required">Apellido:</label>
+        <input type="text" id="apellido" required>
+      </div>
+
+      <div class="form-group">
+        <label class="required">DNI:</label>
+        <input type="text" id="dni" pattern="[0-9]{8}" required>
+      </div>
+
+      <div class="form-group">
+        <label class="required">Fecha de Nacimiento:</label>
+        <input type="date" id="fechaNacimiento" required>
+      </div>
+
+      <div class="form-group">
+        <label class="required">Género:</label>
+        <select id="genero" required>
+          <option value="">Seleccionar</option>
+          <option value="Masculino">Masculino</option>
+          <option value="Femenino">Femenino</option>
+          <option value="Otro">Otro</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Discapacidad:</label>
+        <input type="checkbox" id="discapacidad">
+      </div>
+
+      <div class="form-group">
+        <label class="required">Correo:</label>
+        <input type="email" id="correo" required>
+      </div>
+
+      <div class="form-group">
+        <label class="required">Teléfono:</label>
+        <input type="tel" id="telefono" pattern="[0-9]{9}" required>
+      </div>
+
+      <div class="form-group">
+        <label class="required">Distrito:</label>
+        <select id="distrito" required>
+          <!-- Opciones de distritos se llenarán con JS -->
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label class="required">Tipo de Sangre:</label>
+        <select id="tipoSangre" required>
+          <option value="">Seleccionar</option>
+          <option value="A+">A+</option>
+          <option value="A-">A-</option>
+          <option value="B+">B+</option>
+          <option value="B-">B-</option>
+          <option value="AB+">AB+</option>
+          <option value="AB-">AB-</option>
+          <option value="O+">O+</option>
+          <option value="O-">O-</option>
+        </select>
+      </div>
+
+      <button type="submit" class="btn">Registrar Participante</button>
+      <div id="mensaje"></div>
+    </form>
+  </div>
+
+  <script>
+    // Cargar lista de distritos
+    const distritos = [
+      'Ancón', 'Ate', 'Barranco', 'Breña', 'Carabayllo', 'Cercado de Lima',
+      'Chaclacayo', 'Chorrillos', 'Cieneguilla', 'Comas', 'El Agustino',
+      'Independencia', 'Jesús María', 'La Molina', 'La Victoria', 'Lince',
+      'Los Olivos', 'Lurigancho', 'Lurín', 'Magdalena del Mar', 'Miraflores',
+      'Pachacámac', 'Pucusana', 'Pueblo Libre', 'Puente Piedra', 'Punta Hermosa',
+      'Punta Negra', 'Rímac', 'San Bartolo', 'San Borja', 'San Isidro',
+      'San Juan de Lurigancho', 'San Juan de Miraflores', 'San Luis',
+      'San Martín de Porres', 'San Miguel', 'Santa Anita', 'Santa María del Mar',
+      'Santa Rosa', 'Santiago de Surco', 'Surquillo', 'Villa El Salvador',
+      'Villa María del Triunfo'
+    ];
+
+    document.addEventListener('DOMContentLoaded', function() {
+      const distritoSelect = document.getElementById('distrito');
+      distritos.forEach(distrito => {
+        const option = document.createElement('option');
+        option.value = distrito;
+        option.textContent = distrito;
+        distritoSelect.appendChild(option);
+      });
+
+      // Manejar el envío del formulario
+      document.getElementById('registroForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const participante = {
+          Nombre: document.getElementById('nombre').value,
+          Apellido: document.getElementById('apellido').value,
+          DNI: document.getElementById('dni').value,
+          FechaNacimiento: document.getElementById('fechaNacimiento').value + ' 00:00:00',
+          Genero: document.getElementById('genero').value,
+          Discapacidad: document.getElementById('discapacidad').checked ? 1 : 0,
+          Correo: document.getElementById('correo').value,
+          NumeroTelefono: document.getElementById('telefono').value,
+          Distrito: document.getElementById('distrito').value,
+          TipoSangre: document.getElementById('tipoSangre').value,
+          FechaRegistro: new Date().toISOString()
+        };
+
+        axios.post('http://localhost:3000/api/participantes', participante)
+          .then(response => {
+            document.getElementById('mensaje').className = 'success';
+            document.getElementById('mensaje').textContent = 'Participante registrado correctamente';
+            document.getElementById('registroForm').reset();
+          })
+          .catch(error => {
+            document.getElementById('mensaje').className = 'error';
+            document.getElementById('mensaje').textContent = error.response?.data?.error || 'Error al registrar participante';
+          });
+      });
+    });
+  </script>
+  <script>
+    // Cargar navbar dinámicamente
+    fetch('navbar.html')
+      .then(response => response.text())
+      .then(data => {
+        document.body.insertAdjacentHTML('afterbegin', data);
+      });
+  </script>
+</body>
+</html>

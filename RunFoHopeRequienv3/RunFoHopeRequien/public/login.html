@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Panel de Administración</title>
+    <link rel="stylesheet" href="/css/global.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .login-form-container {
+            max-width: 500px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .login-form-container h2 {
+            color: #1a365d;
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .login-form-container label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #1a365d;
+            font-weight: 500;
+        }
+
+        .login-form-container input {
+            width: 100%;
+            padding: 0.75rem;
+            margin-bottom: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+
+        .login-form-container button {
+            width: 100%;
+            padding: 0.75rem;
+            background-color: #1a365d;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .login-form-container button:hover {
+            background-color: #2a5298;
+            transform: translateY(-2px);
+        }
+
+        .error-message {
+            color: #dc3545;
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+            padding: 10px;
+            border-radius: 4px;
+            margin-bottom: 15px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <nav class="navbar">
+        <div class="navbar-container">
+            <div class="nav-left">
+                <a href="paginaPrincipal.html" class="nav-link">
+                    <i class="fas fa-home"></i> PÁGINA PRINCIPAL
+                </a>
+                <a href="index.html" class="nav-link">
+                    <i class="fas fa-list"></i> Lista Participantes
+                </a>
+                <a href="indexDonaciones.html" class="nav-link">
+                    <i class="fas fa-hand-holding-heart"></i> Donaciones
+                </a>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<main>
+    <div class="login-form-container">
+        <form id="loginForm">
+            <h2>Iniciar Sesión</h2>
+            <div id="error-message" class="error-message"></div>
+
+            <label for="usuario">Usuario:</label>
+            <input type="text" id="usuario" name="usuario" required>
+
+            <label for="contrasena">Contraseña:</label>
+            <input type="password" id="contrasena" name="contrasena" required>
+
+            <button type="submit" class="btn">Ingresar</button>
+        </form>
+    </div>
+</main>
+
+<script>
+    document.getElementById('loginForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const usuario = document.getElementById('usuario').value;
+        const contrasena = document.getElementById('contrasena').value;
+        const errorElement = document.getElementById('error-message');
+
+        errorElement.style.display = 'none';
+
+        try {
+            const response = await fetch('http://localhost:3000/api/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ usuario, contrasena }),
+                credentials: 'include'  // Esto es crucial para las cookies de sesión
+            });
+
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(errorData.error || 'Credenciales incorrectas');
+            }
+
+            window.location.href = '/administracion';
+
+        } catch (err) {
+            errorElement.textContent = err.message;
+            errorElement.style.display = 'block';
+            console.error('Error en login:', err);
+        }
+    });
+</script>
+</body>
+</html>

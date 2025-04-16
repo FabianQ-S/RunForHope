@@ -11,18 +11,14 @@ Aplicación web para la gestión de participantes y donaciones en una organizaci
 ## Tecnologías Utilizadas
 | Área           | Tecnologías/Herramientas                          |
 |----------------|--------------------------------------------------|
-| **Frontend**   | HTML, CSS, JavaScript , Bootstrap                           |
-| **Backend**    | Node.js, Express.js,                            |
-| **Base de Datos** | SQLite3 , Mysql2                                       |
-| **IDEs**       | Visual Studio Code
-                   |
-| **Herramientas Web** | Visual Studio Code, WebStorm               |
+| **Frontend**   | HTML, CSS, JavaScriptNative, Bootstrap                           |
+| **Backend(NPM)**    | Node.js, Express.js,Cors, Axios, mysql2, sqlite3                            |
+| **Base de Datos** | SQLite , Mysql                                       |
+| **IDEs**       | Visual Studio Code /  WebStorm                   |
+| **Herramientas API** | Postman         |
 | **Herramientas DB** | DBBrowserForSQLite, DataGrip
-
 | **Gestión de Paquetes** |  npm
-
-| **Archivos de Configuracíon** | .iml, .xml, package.json, package-lock.json
-              |
+| **Archivos de Configuracíon** | .iml, .xml, package.json, package-lock.json|
 | **Documentación** | Git                                           |
 
 ## Alcance del Proyecto

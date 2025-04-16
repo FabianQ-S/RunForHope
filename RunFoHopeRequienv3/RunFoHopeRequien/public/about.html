@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sobre Nosotros - Run For Hope</title>
+    <!-- Font Awesome para iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/css/global.css">
+
+</head>
+<body>
+
+
+<!-- Contenedor principal -->
+<div class="main-container">
+    <header class="page-header">
+        <div>
+            <h1>Gracias por interesarte en nuestro proyecto <i class="fas fa-hospital"></i></h1>
+            <p>Su apoyo nos parece mucho para nosotros</p>
+        </div>
+        <div class="social-icons">
+            <a href="https://facebook.com/runforhope" target="_blank" class="social-icon">
+                <i class="fab fa-facebook"></i>
+            </a>
+            <a href="https://instagram.com/runforhope" target="_blank" class="social-icon">
+                <i class="fab fa-instagram"></i>
+            </a>
+            <a href="https://wa.me/51967159287" target="_blank" class="social-icon">
+                <i class="fab fa-whatsapp"></i>
+            </a>
+        </div>
+    </header>
+
+    <div class="about-content">
+        <div class="about-text">
+            <h2 class="project-title">Run For Hope</h2>
+            <p>Somos una iniciativa dedicada a la lucha contra el cáncer mediante la promoción de hábitos saludables y la concientización sobre la importancia de la detección temprana.</p>
+            <p>Nuestra carrera benéfica anual reúne a cientos de participantes que corren con un propósito: recaudar fondos para la investigación y el apoyo a pacientes con cáncer.</p>
+            <p>Creemos firmemente que la prevención es la mejor arma contra esta enfermedad, y por ello promovemos la educación y los chequeos regulares como parte fundamental de nuestra misión.</p>
+        </div>
+        <div class="calendar-container">
+            <h3 class="calendar-title">Cuenta Regresiva</h3>
+            <p>Para la carrera "RUN FOR HOPE 🎗🎗🎗"</p>
+            <div class="days-counter" id="countdown">Calculando...</div>
+            <p class="calendar-date">13 de junio, 2025</p>
+        </div>
+    </div>
+
+    <div>
+        <h2>Nuestra Misión</h2>
+        <p>En Run For Hope, nos dedicamos a crear conciencia sobre la prevención del cáncer y a recaudar fondos para apoyar a quienes luchan contra esta enfermedad. A través de nuestra carrera anual y diversas actividades de concientización, buscamos:</p>
+        <ul>
+            <li>Promover la educación sobre factores de riesgo y síntomas tempranos del cáncer</li>
+            <li>Fomentar hábitos saludables como la actividad física regular</li>
+            <li>Recaudar fondos para la investigación y tratamientos contra el cáncer</li>
+            <li>Crear una comunidad de apoyo para pacientes y familiares afectados</li>
+        </ul>
+        <p>Tu participación y donaciones son cruciales para continuar con nuestra labor. ¡Únete a nosotros en esta carrera por la esperanza!</p>
+    </div>
+</div>
+
+<!-- Footer -->
+<footer class="footer">
+    <div class="footer-container">
+        <div class="footer-section">
+            <h3 class="footer-title">Desarrolladores</h3>
+            <p>Dennis Carrera</p>
+            <p>Fabian Quintanilla</p>
+        </div>
+        <div class="footer-section">
+            <h3 class="footer-title">Encargados de Publicidad</h3>
+            <div class="footer-contact">
+                <i class="fas fa-user"></i>
+                <p>Hayde Santillana</p>
+            </div>
+            <div class="footer-contact">
+                <i class="fas fa-phone"></i>
+                <p>967159287</p>
+            </div>
+            <div class="footer-contact">
+                <i class="fas fa-envelope"></i>
+                <p>Contacte con nosotros</p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- JavaScript -->
+<script src="/js/funciones.js"></script>
+<script>
+    // Cargar navbar dinámicamente
+    fetch('navbar.html')
+        .then(response => response.text())
+        .then(data => {
+            document.body.insertAdjacentHTML('afterbegin', data);
+        });
+</script>
+</body>
+</html>

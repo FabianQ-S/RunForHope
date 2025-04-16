@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Eliminar Donación</title>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <link rel="stylesheet" href="/css/global.css">
+  <style>
+    /* Estilos específicos para deleteDonaciones.html */
+    body {
+        padding-top: 60px;
+    }
+    
+    #eliminarForm {
+        max-width: 600px;
+        margin: 0 auto 2rem;
+        padding: 1.5rem;
+        background-color: #f0f5ff;
+        border-radius: 8px;
+        border-left: 4px solid #2a5298;
+    }
+    
+    #listaDonaciones {
+        margin-top: 2rem;
+    }
+    
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 1rem;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    }
+    
+    th, td {
+        padding: 0.75rem 1rem;
+        text-align: left;
+        border-bottom: 1px solid #dee2e6;
+    }
+    
+    th {
+        background-color: #1a365d;
+        color: white;
+    }
+    
+    tr:nth-child(even) {
+        background-color: #f8f9fa;
+    }
+    
+    tr:hover {
+        background-color: #e9ecef;
+    }
+    
+    #mensaje {
+        margin: 1rem 0;
+        padding: 0.75rem;
+        border-radius: 4px;
+        font-size: 0.95rem;
+    }
+    
+    .success {
+        color: #155724;
+        background-color: #d4edda;
+        border: 1px solid #c3e6cb;
+    }
+    
+    .error {
+        color: #dc3545;
+        background-color: #f8d7da;
+        border: 1px solid #f5c6cb;
+    }
+    
+    #loading {
+        padding: 1rem;
+        font-style: italic;
+        color: #6c757d;
+    }
+</style>
+</head>
+<body>
+<h1>Eliminar Donación</h1>
+<form id="eliminarForm">
+  <div class="form-group">
+    <label>ID de la donación a eliminar:</label>
+    <input type="number" id="donacionId" required>
+  </div>
+  <button type="submit">Eliminar</button>
+  <div id="mensaje"></div>
+</form>
+
+<div id="listaDonaciones">
+  <h3>Lista de Donaciones (Referencia)</h3>
+  <div id="loading">Cargando...</div>
+  <table>
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>Patrocinador</th>
+      <th>Monto</th>
+      <th>Fecha</th>
+      <th>RUC</th>
+    </tr>
+    </thead>
+    <tbody id="donacionesBody"></tbody>
+  </table>
+</div>
+
+<script>
+  // Cargar lista de donaciones
+  axios.get('http://localhost:3000/api/donaciones')
+          .then(response => {
+            document.getElementById('loading').style.display = 'none';
+            const tbody = document.getElementById('donacionesBody');
+            response.data.data.forEach(d => {
+              tbody.innerHTML += `
+                    <tr>
+                        <td>${d.id}</td>
+                        <td>${d.nombre_patrocinador}</td>
+                        <td>${d.monto.toFixed(2)}</td>
+                        <td>${new Date(d.fecha).toLocaleDateString()}</td>
+                        <td>${d.ruc || 'N/A'}</td>
+                    </tr>
+                `;
+            });
+          })
+          .catch(error => {
+            document.getElementById('loading').textContent = 'Error cargando donaciones';
+          });
+
+  // Manejar eliminación
+  document.getElementById('eliminarForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const id = document.getElementById('donacionId').value;
+    const mensaje = document.getElementById('mensaje');
+
+    axios.delete(`http://localhost:3000/api/donaciones/${id}`)
+            .then(() => {
+              mensaje.className = 'success';
+              mensaje.textContent = `Donación ID ${id} eliminada correctamente`;
+              document.getElementById('donacionId').value = '';
+
+              // Actualizar lista
+              const filas = document.querySelectorAll('#donacionesBody tr');
+              filas.forEach(fila => {
+                const idFila = fila.cells[0].textContent;
+                if(idFila === id) {
+                  fila.remove();
+                }
+              });
+            })
+            .catch(error => {
+              mensaje.className = 'error';
+              const errorMsg = error.response?.data?.error || 'Error al eliminar donación';
+              mensaje.textContent = errorMsg.includes('afectadas')
+                      ? 'Donación no encontrada'
+                      : errorMsg;
+            });
+  });
+</script>
+
+<script>
+  // Cargar navbar dinámicamente
+  fetch('navbar.html')
+          .then(response => response.text())
+          .then(data => {
+            document.body.insertAdjacentHTML('afterbegin', data);
+          });
+</script>
+</body>
+</html>
