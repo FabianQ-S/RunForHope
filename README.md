@@ -6,29 +6,38 @@
 - **Haydee Bealuz Quispe Ramos**
 
 ## Descripción del Proyecto
-Aplicación web para la gestión de participantes en una organización benéfica dedicada a la lucha contra el cáncer. El sistema permitirá el registro, seguimiento y administración de la información de los participantes en eventos, voluntariados y actividades de apoyo.
+Aplicación web para la gestión de participantes y donaciones en una organización benéfica dedicada a la lucha contra el cáncer. El sistema permitirá el registro, seguimiento y administración de la información de los participantes en eventos, voluntariados y actividades de apoyo.
 
 ## Tecnologías Utilizadas
 | Área           | Tecnologías/Herramientas                          |
 |----------------|--------------------------------------------------|
-| **Frontend**   | HTML, CSS, JavaScript                            |
-| **Backend**    | C# ASP.NET Core MVC                              |
-| **Base de Datos** | SQLite3                                        |
-| **IDEs**       | Visual Studio, JetBrains Rider                  |
+| **Frontend**   | HTML, CSS, JavaScript , Bootstrap                           |
+| **Backend**    | Node.js, Express.js,                            |
+| **Base de Datos** | SQLite3 , Mysql2                                       |
+| **IDEs**       | Visual Studio Code
+                   |
 | **Herramientas Web** | Visual Studio Code, WebStorm               |
-| **Herramientas DB** | DBBrowserForSQLite, DataGrip               |
+| **Herramientas DB** | DBBrowserForSQLite, DataGrip
+
+| **Gestión de Paquetes** |  npm
+
+| **Archivos de Configuracíon** | .iml, .xml, package.json, package-lock.json
+              |
 | **Documentación** | Git                                           |
 
 ## Alcance del Proyecto
 
 ### Objetivo General
-Desarrollar una plataforma web que permita a las organizaciones benéficas gestionar la información de los participantes en eventos, campañas de concienciación y programas de voluntariado, mejorando la coordinación y el impacto de sus actividades.
+Desarrollar un sistema web que facilite la gestión de donaciones, usuarios y registros en el marco de una organización solidaria. El objetivo es centralizar la información de forma segura y accesible, promoviendo una mejor toma de decisiones en las campañas.
 
 ### Funcionalidades Principales
 
 #### Frontend (Interfaz)
 - **Gestión de Participantes**: Registro, edición y eliminación de participantes.
-- **Diseño Responsive**: Compatibilidad con dispositivos móviles y tablets.
+**Gestión de Donaciones**: Registro, edición y eliminación de donaciones.
+**Navegación web**: Menú de acceso rápido a diferentes
+ secciones.
+- **Responsive Desing**: Compatibilidad con dispositivos móviles y tablets.
 
 #### Backend (Lógica del Sistema)
 - **Autenticación y Autorización**: Registro e inicio de sesión de administradores con roles y permisos personalizados.
@@ -37,7 +46,7 @@ Desarrollar una plataforma web que permita a las organizaciones benéficas gesti
 - **Lógica de Negocio**: Validaciones para asegurar datos completos y coherentes.
 
 #### Base de Datos
-- **Modelado de Datos**: Tablas para participantes.
+- **Modelado de Datos**: Tablas para participantes y donaciones.
 - **Consultas Optimizadas**: Búsquedas rápidas y eficientes de información clave.
 - **Seguridad**: Encriptación de datos sensibles y control de accesos.
 
@@ -58,7 +67,7 @@ Desarrollar una plataforma web que permita a las organizaciones benéficas gesti
 - Pruebas de usabilidad y rendimiento.
 
 ### Fase 4: Despliegue
-- Despliegue en un entorno de producción (ej.: Azure, AWS o servidor local).
+- Ejecución del proyecto en entorno local.
 - Configuración de dominios y certificados SSL.
 
 ### Fase 5: Mantenimiento
