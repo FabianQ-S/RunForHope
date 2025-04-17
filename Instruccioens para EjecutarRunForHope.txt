@@ -1,6 +1,19 @@
 Tener en cuenta para ejecutar el proyecto:
 
-*Crear la database mysql con los datos que estan en la carpeta "ScripDeCreacionParaLaDatabase" en el archio "DatabaseMysql.txt".
+*Crear la database mysql con los datos que estan en la carpeta "ScripDeCreacionParaLaDatabase" en el archio "DatabaseMysql.txt" o con el siguiente codigo:
+
+-- Crear base de datos si no existe
+CREATE DATABASE IF NOT EXISTS BD_Donaciones;
+USE BD_Donaciones;
+-- Crear tabla de donaciones con campos específicos
+CREATE TABLE IF NOT EXISTS donaciones (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre_patrocinador VARCHAR(100) NOT NULL,
+    monto DECIMAL(10,2) NOT NULL,
+    fecha DATE NOT NULL,
+    ruc VARCHAR(11)
+);
+
 
 *El programa no viene con los modulos instalados por favor instalarlos con "npm i" en la carpeta raiz
 
