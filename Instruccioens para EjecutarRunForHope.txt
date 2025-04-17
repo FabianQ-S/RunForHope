@@ -1,0 +1,13 @@
+Tener en cuenta para ejecutar el proyecto:
+
+*Crear la database mysql con los datos que estan en la carpeta "ScripDeCreacionParaLaDatabase" en el archio "DatabaseMysql.txt".
+
+*El programa no viene con los modulos instalados por favor instalarlos con "npm i" en la carpeta raiz
+
+*Por favor ejecutar el "index.js" para utilizar el programa copiando el .http://localhost:3000
+
+*Ademas las credenciales que espera el programa para la database son usuario "root" con contraseña "123456" para la database mysql
+
+Gracias por leer.
+
+https://github.com/FabianQ-S/RunForHope
