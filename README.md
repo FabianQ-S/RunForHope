@@ -24,9 +24,9 @@ Aplicación web para la gestión de participantes y donaciones en una organizaci
 ## Participacion Por Roles
 | Puesto           | Miembro                       | %de Participacion               |
 |----------------|---------------------------------------|---------------------------|
-| **Frontend**   | DennisCarrera / Heydi |                          | 55%                |
+| **Frontend**   | DennisCarrera / Heydi |                           55%                |
 | **Backend**   |        FabianQ-S / DennisCarrera                    | 30%          |
-| **Documentación**   | FabianQ-S / Heydi |                          |   15%         |
+| **Documentación**   | FabianQ-S / Heydi |                             15%         |
 
 ## Participacion Por Miembro
 | Miembro                       | %de ParticipacionEn el proyecto               |
