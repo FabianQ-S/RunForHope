@@ -1,4 +1,4 @@
-# Gestión de Participantes - Organización Benéfica
+# Gestión de Participantes para administradores - Organización Benéfica
 
 ## Miembros del Equipo de Desarrollo
 - **Fabian Ricardo Quintanilla Sanchez** (Líder del Proyecto)
@@ -20,6 +20,21 @@ Aplicación web para la gestión de participantes y donaciones en una organizaci
 | **Gestión de Paquetes** |  npm
 | **Archivos de Configuracíon** | .iml, .xml, package.json, package-lock.json|
 | **Documentación** | Git                                           |
+
+## Participacion Por Roles
+| Puesto           | Miembro                       | %de Participacion               |
+|----------------|---------------------------------------|---------------------------|
+| **Frontend**   | DennisCarrera / Heydi |                          | 55%                |
+| **Backend**   |        FabianQ-S / DennisCarrera                    | 30%          |
+| **Documentación**   | FabianQ-S / Heydi |                          |   15%         |
+
+## Participacion Por Miembro
+| Miembro                       | %de ParticipacionEn el proyecto               |
+|---------------------------------------|---------------------------|
+| **DennisCarrera**  |                          | 35%                |
+| **Haydi**                     | 30%          |
+| **FabianQ-S**  |                          |   35%         |
+
 
 ## Alcance del Proyecto
 
@@ -78,8 +93,7 @@ Desarrollar un sistema web que facilite la gestión de donaciones, usuarios y re
 - El enfoque principal es la gestión de participantes en actividades benéficas.
 
 ### Supuestos
-- Los usuarios tienen conocimientos básicos en el manejo de software de registro de participantes.
-- La aplicación será utilizada por administradores y voluntarios de la organización.
+- La aplicación será utilizada por administradores de la organización.
 
 ## Beneficios Esperados
 - Mejora en la gestión y coordinación de eventos benéficos.

@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar Donación</title>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <link rel="stylesheet" href="/css/global.css">
+    <style>
+        body {
+            padding-top: 60px;
+        }
+        
+        .search-section {
+            background-color: #f0f5ff;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            border-left: 4px solid #2a5298;
+        }
+        
+        .search-section .form-group {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        
+        .search-section input[type="number"] {
+            width: 120px;
+        }
+        
+        #editarForm {
+            display: none;
+            margin-top: 2rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #1a365d;
+        }
+        
+        .required::after {
+            content: "*";
+            color: #dc3545;
+            margin-left: 4px;
+        }
+        
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        input[type="date"],
+        input[type="number"],
+        select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            font-size: 1rem;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+        
+        .currency-input {
+            position: relative;
+        }
+        
+        .currency-input::before {
+            content: "S/.";
+            position: absolute;
+            left: 10px;
+            top: 38px;
+            font-weight: bold;
+            color: #1a365d;
+        }
+        
+        .currency-input input {
+            padding-left: 35px;
+        }
+        
+        #searchMessage, #editMessage {
+            margin: 1rem 0;
+            padding: 0.75rem;
+            border-radius: 4px;
+            font-size: 0.95rem;
+        }
+        
+        #searchMessage {
+            color: #dc3545;
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+        }
+        
+        #editMessage {
+            color: #155724;
+            background-color: #d4edda;
+            border: 1px solid #c3e6cb;
+        }
+        
+        @media (max-width: 768px) {
+            .search-section .form-group {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+            }
+            
+            .search-section input[type="number"] {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="main-container">
+        <h1 class="page-header">Editar Donación</h1>
+        
+        <div class="search-section">
+            <div class="form-group">
+                <label>ID de la donación a editar:</label>
+                <input type="number" id="searchId">
+                <button type="button" class="btn" onclick="cargarDonacion()">Cargar Datos</button>
+                <div id="searchMessage"></div>
+            </div>
+        </div>
+
+        <form id="editarForm" style="display: none;">
+            <div class="form-group">
+                <label class="required">Nombre del Patrocinador:</label>
+                <input type="text" id="editNombrePatrocinador" required>
+            </div>
+
+            <div class="form-group">
+                <label class="required">Monto:</label>
+                <div class="currency-input">
+                    <input type="number" id="editMonto" step="0.01" min="0" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="required">Fecha:</label>
+                <input type="date" id="editFecha" required>
+            </div>
+
+            <div class="form-group">
+                <label>RUC:</label>
+                <input type="text" id="editRuc" pattern="[0-9]{11}">
+            </div>
+
+            <div class="form-group">
+                <label>Tipo de Donación:</label>
+                <select id="editTipoDonacion">
+                    <option value="Dinero">Dinero</option>
+                    <option value="Especies">Especies</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Descripción:</label>
+                <textarea id="editDescripcion" rows="3" style="width: 100%; padding: 0.75rem; border: 1px solid #ced4da; border-radius: 4px;"></textarea>
+            </div>
+
+            <button type="submit" class="btn">Guardar Cambios</button>
+            <div id="editMessage"></div>
+        </form>
+    </div>
+
+    <script>
+        function cargarDonacion() {
+            const id = document.getElementById('searchId').value;
+            if (!id) {
+                document.getElementById('searchMessage').textContent = 'Ingrese un ID válido';
+                return;
+            }
+
+            axios.get(`http://localhost:3000/api/donaciones/${id}`)
+                .then(response => {
+                    const d = response.data.data;
+                    document.getElementById('editarForm').style.display = 'block';
+                    document.getElementById('searchMessage').textContent = '';
+
+                    document.getElementById('editNombrePatrocinador').value = d.nombre_patrocinador;
+                    document.getElementById('editMonto').value = d.monto;
+                    document.getElementById('editFecha').value = new Date(d.fecha).toISOString().split('T')[0];
+                    document.getElementById('editRuc').value = d.ruc || '';
+                    document.getElementById('editTipoDonacion').value = d.tipo_donacion || 'Dinero';
+                    document.getElementById('editDescripcion').value = d.descripcion || '';
+                })
+                .catch(error => {
+                    document.getElementById('searchMessage').textContent =
+                        error.response?.data?.error || 'Error cargando donación';
+                });
+        }
+
+        document.getElementById('editarForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const id = document.getElementById('searchId').value;
+
+            const donacion = {
+                nombre_patrocinador: document.getElementById('editNombrePatrocinador').value,
+                monto: parseFloat(document.getElementById('editMonto').value),
+                fecha: document.getElementById('editFecha').value + 'T00:00:00',
+                ruc: document.getElementById('editRuc').value || null,
+                tipo_donacion: document.getElementById('editTipoDonacion').value,
+                descripcion: document.getElementById('editDescripcion').value || null
+            };
+
+            axios.put(`http://localhost:3000/api/donaciones/${id}`, donacion)
+                .then(response => {
+                    document.getElementById('editMessage').textContent = 'Donación actualizada correctamente';
+                })
+                .catch(error => {
+                    document.getElementById('editMessage').className = 'error-message';
+                    document.getElementById('editMessage').textContent =
+                        error.response?.data?.error || 'Error actualizando donación';
+                });
+        });
+    </script>
+    <script>
+        fetch('navbar.html')
+            .then(response => response.text())
+            .then(data => {
+                document.body.insertAdjacentHTML('afterbegin', data);
+            });
+    </script>
+</body>
+</html>
