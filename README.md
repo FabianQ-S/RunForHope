@@ -31,9 +31,9 @@ Aplicación web para la gestión de participantes y donaciones en una organizaci
 ## Participacion Por Miembro
 | Miembro                       | %de ParticipacionEn el proyecto               |
 |---------------------------------------|---------------------------|
-| **DennisCarrera**  |                          | 35%                |
+| **DennisCarrera**  |                           35%                |
 | **Haydi**                     | 30%          |
-| **FabianQ-S**  |                          |   35%         |
+| **FabianQ-S**  |                             35%         |
 
 
 ## Alcance del Proyecto
